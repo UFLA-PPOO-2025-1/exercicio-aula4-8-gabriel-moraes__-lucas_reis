@@ -66,11 +66,11 @@ public class Raposa extends Animal
      * @param novasRaposas Uma lista para retornar as raposas recém-nascidas.
      */
     @Override
-    public void agir(List<Animal> novasRaposas)
+    public void agir(List<Ator> novasRaposas)
     {
         incrementarIdade();
         incrementarFome();
-        if(estaVivo()) {
+        if(estaAtivo()) {
             reproduzir(novasRaposas);            
             // Move-se em direção a uma fonte de comida, se encontrada.
             Localizacao novaLocalizacao = buscarComida();
