@@ -61,6 +61,9 @@ public class Simulador
         visao = new VisaoDeGrafico(800, 400, 500);
         GeradorDePopulacoes.definirCores(visao);
         visoes.add(visao);
+
+        visao = new VisaoDeTexto();
+        visoes.add(visao);
         
         // Configura um ponto de partida válido.
         reiniciar();
@@ -85,6 +88,7 @@ public class Simulador
     {
         for(int passo = 1; passo <= numPassos && visoes.get(0).ehViavel(campo); passo++) {
             simularUmPasso();
+
             if (atraso > 0) {
                 pausar(atraso);   
             }
@@ -113,6 +117,7 @@ public class Simulador
         
         // Adiciona os animais recém-nascidos às listas principais.
         animais.addAll(novosAnimais);
+        
 
         atualizarVisoes();
     }
