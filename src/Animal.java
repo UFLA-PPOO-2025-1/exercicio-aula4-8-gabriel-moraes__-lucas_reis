@@ -30,6 +30,12 @@ public abstract class Animal implements Ator{
         definirLocalizacao(localizacao);
     }
 
+    public void agir(List<Ator> lista){
+        
+    }
+
+
+
     public int obterIdade() {
         return idade;
     }
@@ -114,7 +120,7 @@ public abstract class Animal implements Ator{
      * Novos nascimentos serão feitos em locais vizinhos livres.
      * @param novosAnimais Uma lista para retornar os animais recém-nascidos.
      */
-    protected void reproduzir(List<Animal> novosAnimais)
+    protected void reproduzir(List<Ator> novosAnimais)
     {
         // Novos animais nascem em locais vizinhos.
         // Obtém uma lista de locais vizinhos livres.

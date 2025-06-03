@@ -115,7 +115,7 @@ public class Raposa extends Animal
 		    Object animal = obterCampo().obterObjetoEm(onde);
 		    if(animal instanceof Coelho) {
 		        Coelho coelho = (Coelho) animal;
-		        if(coelho.estaVivo()) { 
+		        if(coelho.estaAtivo()) { 
 		            coelho.morrer();
 		            nivelComida += VALOR_COMIDA_COELHO;
 		            if (nivelComida > NIVEL_COMIDA_MAXIMO) {
