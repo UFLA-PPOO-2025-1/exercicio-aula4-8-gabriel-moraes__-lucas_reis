@@ -121,6 +121,15 @@ public class Simulador
         
         // Adiciona os animais recém-nascidos às listas principais.
         atores.addAll(novosAtores);
+
+        double PROBABILIDADE_NOVO_CACADOR = 0.1; // Ajuste conforme necessário
+        if (Randomizador.obterRandom().nextDouble() < PROBABILIDADE_NOVO_CACADOR) {
+            Localizacao livre = campo.localizacaoLivreAleatoria();
+            if (livre != null) {
+                Cacador novoCacador = new Cacador(campo, livre);
+                atores.add(novoCacador);
+            }
+        }
         
 
         atualizarVisoes();

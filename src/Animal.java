@@ -11,32 +11,21 @@ public abstract class Animal extends SerVivo{
     // Características individuais (atributos comuns, de instância).
     
     // A idade do animal.
-    private int idade;
 
     public Animal(boolean idadeAleatoria, Campo campo, Localizacao localizacao)
     {
         super(campo,localizacao);
-        idade = 0;
+        int idade = 0;
         if(idadeAleatoria) {
             idade = rand.nextInt(obterIdadeMaxima());
         }
-    }
-
-    public int obterIdade() {
-        return idade;
+        setIdade(idade);
     }
     
     /**
      * Aumenta a idade.
      * Isso pode resultar na morte do coelho.
      */
-    protected void incrementarIdade()
-    {
-        idade++;
-        if(idade > obterIdadeMaxima()) {
-            morrer();
-        }
-    }
 
     /**
      * Gera um número representando o número de nascimentos,
