@@ -19,7 +19,8 @@ public class Simulador
     private static final int COMPRIMENTO_PADRAO = 80;
 
     // Lista de animais no campo.
-    private List<Animal> animais;
+    //private List<Animal> animais;
+    private List<Ator> atores;
     // O estado atual do campo.
     private Campo campo;
     // O passo atual da simulação.
@@ -49,7 +50,7 @@ public class Simulador
             largura = LARGURA_PADRAO;
         }
         
-        animais = new ArrayList<>();
+        atores = new ArrayList<>();
         campo = new Campo(comprimento, largura);
 
         visoes = new ArrayList<>();
@@ -60,6 +61,9 @@ public class Simulador
 
         visao = new VisaoDeGrafico(800, 400, 500);
         GeradorDePopulacoes.definirCores(visao);
+        visoes.add(visao);
+
+        visao = new VisaoDeTexto();
         visoes.add(visao);
         
         // Configura um ponto de partida válido.
@@ -85,6 +89,7 @@ public class Simulador
     {
         for(int passo = 1; passo <= numPassos && visoes.get(0).ehViavel(campo); passo++) {
             simularUmPasso();
+
             if (atraso > 0) {
                 pausar(atraso);   
             }
@@ -101,18 +106,31 @@ public class Simulador
         passo++;
 
         // Fornece espaço para os animais recém-nascidos.
-        List<Animal> novosAnimais = new ArrayList<>(); 
+        //List<Animal> novosAnimais = new ArrayList<>(); 
+        List<Ator> novosAtores = new ArrayList<>();
         // Permite que todos os ns ajam.
-        for(Iterator<Animal> it = animais.iterator(); it.hasNext(); ) {
-            Animal animal = it.next();
-            animal.agir(novosAnimais);
-            if(!animal.estaVivo()) {
+        for(Iterator<Ator> it = atores.iterator(); it.hasNext(); ) {
+            //Animal animal = it.next();
+            //animal.agir(novosAtores);
+            Ator ator = it.next();
+            ator.agir(novosAtores);
+            if(!ator.estaAtivo()) {
                 it.remove();
             }
         }
         
         // Adiciona os animais recém-nascidos às listas principais.
-        animais.addAll(novosAnimais);
+        atores.addAll(novosAtores);
+
+        double PROBABILIDADE_NOVO_CACADOR = 0.1; // Ajuste conforme necessário
+        if (Randomizador.obterRandom().nextDouble() < PROBABILIDADE_NOVO_CACADOR) {
+            Localizacao livre = campo.localizacaoLivreAleatoria();
+            if (livre != null) {
+                Cacador novoCacador = new Cacador(campo, livre);
+                atores.add(novoCacador);
+            }
+        }
+        
 
         atualizarVisoes();
     }
@@ -123,12 +141,12 @@ public class Simulador
     public void reiniciar()
     {
         passo = 0;
-        animais.clear();
+        atores.clear();
         for (VisaoSimulador visao : visoes) {
             visao.reiniciar();
         }
 
-        GeradorDePopulacoes.povoar(campo, animais);
+        GeradorDePopulacoes.povoar(campo, atores);
         
         atualizarVisoes();
         reabilitarOpcoesVisoes();

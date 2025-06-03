@@ -184,6 +184,44 @@ public class Campo
         return localizacoes;
     }
 
+    public Localizacao localizacaoLivreAleatoria()
+    {
+        List<Localizacao> localizacoes = new LinkedList<>();
+        for (int linha = 0; linha < comprimento; linha++) {
+            for (int coluna = 0; coluna < largura; coluna++) {
+                if (campo[linha][coluna] == null) {
+                    localizacoes.add(new Localizacao(linha, coluna));
+                }
+            }
+        }
+
+        if (localizacoes.isEmpty()) {
+            return null;
+        }
+
+        Collections.shuffle(localizacoes, rand);
+        return localizacoes.get(0);
+    }
+
+    public Localizacao localizacaoOcupadaAleatoria()
+    {
+        List<Localizacao> localizacoes = new LinkedList<>();
+        for (int linha = 0; linha < comprimento; linha++) {
+            for (int coluna = 0; coluna < largura; coluna++) {
+                if (campo[linha][coluna] != null) {
+                    localizacoes.add(new Localizacao(linha, coluna));
+                }
+            }
+        }
+
+        if (localizacoes.isEmpty()) {
+            return null;
+        }
+
+        Collections.shuffle(localizacoes, rand);
+        return localizacoes.get(0);
+    }
+
     /**
      * Retorna o comprimento do campo.
      * @return O comprimento do campo.
